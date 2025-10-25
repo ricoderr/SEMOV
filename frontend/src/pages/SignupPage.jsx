@@ -14,9 +14,14 @@ const SignupPage = () => {
   const [MsgType, setMsgType] = useState("");
 
   const HandleSignup = (e) => {
+    console.log("from submitted!")
+    console.log(ShowMsg)
+    console.log(Password)
+    console.log(Username)
     e.preventDefault();
     if (Password.length < 8) {
       setShowMsg(true);
+      console.log("Hey! ")
       setMsgType("warn");
       setMsg("Password must contain at least 8 letters.");
     } else {
@@ -40,7 +45,7 @@ const SignupPage = () => {
             }
           })
           .then((data) => {
-            console.log();
+            console.log(data);
           });
       } catch (err) {
         console.log("Unable to fetch! Server error!. MSG: ", err);
@@ -50,7 +55,7 @@ const SignupPage = () => {
 
   return (
     <div className="w-full h-full flex justify-center items-center bg-black ">
-      {ShowMsg === true ? <MessageBox text={Msg} type={MsgType}/> : null}
+      {ShowMsg === true ? <MessageBox text={Msg} type={MsgType} onHide={()=> setShowMsg(false)}/> : null}
       <main className="bg-black w-[90%] h-[85%] flex justify-between items-center">
         <motion.div
           initial={{ x: 235 }}

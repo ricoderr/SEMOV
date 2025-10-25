@@ -22,7 +22,7 @@ const LoginPage = () => {
     // split login page. 
     
     <div className="w-full h-full flex justify-center items-center bg-black ">
-      {ShowMsg === true ? <MessageBox text={Msg}/>: null}
+      {ShowMsg === true ? <MessageBox text={Msg} InitialShow={ShowMsg} />: null}
       <main className="bg-black w-[90%] h-[85%] flex justify-between items-center">
         <motion.div 
           initial={{x:235}}
