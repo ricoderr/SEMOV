@@ -1,0 +1,81 @@
+import Button from "../components/Button";
+import {useState} from 'react'; 
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import InputBox from "../components/InputBox";
+
+const SignupPage = () => {
+    const [Username, setUsername] = useState(""); 
+    const [Email, setEmail] = useState(""); 
+    const [Password, setPassword] = useState(""); 
+    const [Cpassword, setCpassword] = useState(""); 
+
+    const HandleSignup = (e)=>{
+        e.preventDefault(); 
+        console.log(`Username: ${Username}`)
+        console.log(`Email: ${Email}`)
+        console.log(`Password: ${Password}`)
+        console.log(`Cpassword: ${Cpassword}`)
+    }
+
+  return (
+    <div className="w-full h-full flex justify-center items-center bg-black ">
+      <main className="bg-black w-[90%] h-[85%] flex justify-between items-center">
+        <motion.div
+          initial={{ x: 350 }}
+          animate={{ x: 680 }}
+          exit={{ x: 350 }}
+          className=" bg-white w-[49%] h-[97%] flex flex-col justify-items-start items-center border-0 rounded-2xl"
+        >
+          <div className="h-[20%] w-full flex justify-center items-center">
+            <div className="w-45 h-20 shadow">
+              <img
+                src="/Semov.png"
+                alt="semov Logo"
+                className="w-full h-full object-cover rounded-lg shadow-2xl"
+              />
+            </div>
+          </div>
+          <div className="h-[65%] w-full  flex items-center flex-col mt-10 ">
+            <h1 className="text-6xl text-center h-[20%]">SignUp</h1>
+            <form
+              action=""
+              method="POST"
+              onSubmit={HandleSignup}
+              className="flex flex-col justify-between items-center w-1/2 h-[82%]"
+            >
+              <InputBox label="Username: " type="text" name="username"  value={Username} onChange={(e)=> setUsername(e.target.value)}/>
+              <InputBox label="Email: " type="email" name="email"   value={Email} onChange={(e)=> setEmail(e.target.value)}/>
+              <InputBox label="Password: " type="password" name="password" value={Password} onChange={(e)=> setPassword(e.target.value)}/>
+              
+              <p className="text-2xl">
+                Already have an account?{" "}
+                <Link
+                  to="/"
+                  className="underline text-[#ff3131] cursor-pointer hover:text-[#ffd200] "
+                >
+                  Login!
+                </Link>
+              </p>
+              <Button text="Signup" type="submit" />
+            </form>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ x: -340 }}
+          animate={{ x: -715 }}
+          exit={{ x: -340 }}
+          className=" w-1/2 h-full bg-white border-0 rounded-2xl"
+        >
+          <img
+            src="/back-cover.png"
+            alt=""
+            className="h-full w-full object-cover border-0 rounded-2xl"
+          />
+        </motion.div>
+      </main>
+    </div>
+  );
+};
+
+export default SignupPage;

@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,11 +53,12 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS =[
-    'http://localhost:5173'
+    'http://localhost:5174'
 ]
 CORS_ALLOW_CREDENTIALS = True
 
 
+AUTH_USER_MODEL = 'base.CustomUserModel'
 AUTHENTICATION_BACKENDS = ['base.backends.EmailBackend']
 
 
