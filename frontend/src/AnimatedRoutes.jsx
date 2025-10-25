@@ -8,7 +8,7 @@ const AnimatedRoutes = ()=>{
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<LoginPage/>}/>
+                <Route path="/auth/login" element={<LoginPage/>}/>
                 <Route path="/auth/signup" element={<SignupPage/>}/>
             </Routes>
         </AnimatePresence>

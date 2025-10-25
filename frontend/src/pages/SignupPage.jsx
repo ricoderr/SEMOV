@@ -51,7 +51,7 @@ const SignupPage = () => {
               <p className="text-2xl">
                 Already have an account?{" "}
                 <Link
-                  to="/"
+                  to="/auth/login"
                   className="underline text-[#ff3131] cursor-pointer hover:text-[#ffd200] "
                 >
                   Login!

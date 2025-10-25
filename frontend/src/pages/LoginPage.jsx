@@ -4,19 +4,25 @@ import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InputBox from "../components/InputBox";
+import MessageBox from "../components/MessageBox";
 
 const LoginPage = () => {
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
+  const [Msg, setMsg] = useState("")
+  const [ShowMsg, setShowMsg] = useState(false)
 
   const HandleSubmit = (e)=>{
     e.preventDefault(); 
-    console.log(Email)
-    console.log(Password)
+    setMsg("show message working fine")
+    setShowMsg(true)
+    
   }
   return (
     // split login page. 
+    
     <div className="w-full h-full flex justify-center items-center bg-black ">
+      {ShowMsg === true ? <MessageBox text={Msg}/>: null}
       <main className="bg-black w-[90%] h-[85%] flex justify-between items-center">
         <motion.div 
           initial={{x:350}}
