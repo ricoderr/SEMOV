@@ -12,8 +12,8 @@ const MessageBox = ({ text = "loggedin Successfully!", type = "success", show = 
           animate={{ opacity: 1, y: 0 }}   
           exit={{ opacity: 0, y: -50 }}    
           transition={{ duration: 0.3 }}
-          className={`flex justify-center items-center fixed  top-5 left-1/2 transform -translate-x-1/2 
-          p-4 rounded-md shadow-lg ${
+          className={`flex justify-center items-center fixed  top-5 z-1 left-1/2 transform -translate-x-1/2 
+          p-1 rounded-md shadow-lg ${
             type === "failed"
               ? "bg-[#ff3131] text-white"
               : type === "warn"
@@ -30,7 +30,7 @@ const MessageBox = ({ text = "loggedin Successfully!", type = "success", show = 
           ) : type === "success" ? (
             <SuccessIcon />
           ) : null}
-          <div className="relative top-0.5 ml-5 text-3xl">{text}</div>
+          <div className="relative top-0.5 ml-5 text-2xl">{text}</div>
         </motion.div>
       )}
     </AnimatePresence>

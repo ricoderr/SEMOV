@@ -1,31 +1,62 @@
 import Button from "../components/Button";
-import {useState} from 'react'; 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import InputBox from "../components/InputBox";
+import MessageBox from "../components/MessageBox";
 
 const SignupPage = () => {
-    const [Username, setUsername] = useState(""); 
-    const [Email, setEmail] = useState(""); 
-    const [Password, setPassword] = useState(""); 
-    const [Cpassword, setCpassword] = useState(""); 
+  const [Username, setUsername] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Msg, setMsg] = useState("");
+  const [ShowMsg, setShowMsg] = useState(false);
+  const [MsgType, setMsgType] = useState("");
 
-    const HandleSignup = (e)=>{
-        e.preventDefault(); 
-        console.log(`Username: ${Username}`)
-        console.log(`Email: ${Email}`)
-        console.log(`Password: ${Password}`)
-        console.log(`Cpassword: ${Cpassword}`)
+  const HandleSignup = (e) => {
+    e.preventDefault();
+    if (Password.length < 8) {
+      setShowMsg(true);
+      setMsgType("warn");
+      setMsg("Password must contain at least 8 letters.");
+    } else {
+      try {
+        fetch(BASE_URL, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username: Username,
+            email: Email,
+            password: Password,
+          }),
+        })
+          .then((res) => {
+            if (!res) {
+              throw new Error("No response from the backend");
+            } else {
+              return res.json();
+            }
+          })
+          .then((data) => {
+            console.log();
+          });
+      } catch (err) {
+        console.log("Unable to fetch! Server error!. MSG: ", err);
+      }
     }
+  };
 
   return (
     <div className="w-full h-full flex justify-center items-center bg-black ">
+      {ShowMsg === true ? <MessageBox text={Msg} type={MsgType}/> : null}
       <main className="bg-black w-[90%] h-[85%] flex justify-between items-center">
         <motion.div
           initial={{ x: 235 }}
           animate={{ x: 470 }}
           exit={{ x: 235 }}
-          transition={{type:"tween"}}
+          transition={{ type: "tween" }}
           className=" bg-white w-[49%] h-[97%] flex flex-col justify-items-start items-center border-0 rounded-2xl"
         >
           <div className="h-[20%] w-full flex justify-center items-center">
@@ -45,10 +76,28 @@ const SignupPage = () => {
               onSubmit={HandleSignup}
               className="flex flex-col justify-between items-center w-1/2 h-[82%]"
             >
-              <InputBox label="Username: " type="text" name="username"  value={Username} onChange={(e)=> setUsername(e.target.value)}/>
-              <InputBox label="Email: " type="email" name="email"   value={Email} onChange={(e)=> setEmail(e.target.value)}/>
-              <InputBox label="Password: " type="password" name="password" value={Password} onChange={(e)=> setPassword(e.target.value)}/>
-              
+              <InputBox
+                label="Username: "
+                type="text"
+                name="username"
+                value={Username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <InputBox
+                label="Email: "
+                type="email"
+                name="email"
+                value={Email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <InputBox
+                label="Password: "
+                type="password"
+                name="password"
+                value={Password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
               <p className="text-1xl">
                 Already have an account?{" "}
                 <Link
@@ -66,7 +115,7 @@ const SignupPage = () => {
           initial={{ x: -230 }}
           animate={{ x: -461 }}
           exit={{ x: -230 }}
-          transition={{type:"tween"}}
+          transition={{ type: "tween" }}
           className=" w-1/2 h-full bg-white border-0 rounded-2xl"
         >
           <img
