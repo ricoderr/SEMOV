@@ -6,18 +6,18 @@ import RemoveIcon from "./icons/RemoveIcon";
 import { useState, useEffect } from "react";
 
 const MessageBox = ({
-  text = "loggedin Successfully!",
-  type = "failed",
-  InitialShow,
-  duration = 3000, 
-  onHide, 
+  text="Test text",
+  type="success",
+  InitialShow = true,
+  duration = 1000, 
+  onUsed, 
 }) => {
   const [Show, setShow] = useState(InitialShow);
 
   const HandleRemove = () => {
     setShow(false);
-    onHide?.(); 
     console.log("Message Removed!");
+    onUsed(); 
   };
 
   useEffect(() => {
@@ -27,10 +27,10 @@ const MessageBox = ({
   useEffect(() => {
     if(!Show) return;
     const timer = setTimeout(() => {setShow(false); 
-      onHide?.(); 
+      onUsed(); 
     }, duration);
     return () => clearTimeout(timer);
-  }, [onHide, Show,duration]);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -40,9 +40,9 @@ const MessageBox = ({
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.3 }}
+            transition={{ type: "tween",duration: 0.3 }}
             className={`flex justify-center items-center fixed  top-5 z-1 left-1/2 transform -translate-x-1/2 
-          p-1 rounded-md shadow-lg ${
+          pl-0.5 pr-0.5 rounded-md shadow-lg ${
             type === "failed"
               ? "bg-[#ff3131] text-white"
               : type === "warn"

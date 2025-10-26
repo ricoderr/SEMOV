@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model, authenticate, login
-from django.db import models, IntegrityError
+from django.db import  IntegrityError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status

@@ -53,9 +53,22 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS =[
-    'http://localhost:5174'
+    'http://localhost:5174', 
+    'http://localhost:5173', 
+    
 ]
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_HEADERS = [
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+    'accept',
+    'origin',
+    'user-agent',
+    'dnt',
+    'cache-control',
+    'x-requested-with',
+]
 
 
 AUTH_USER_MODEL = 'base.CustomUserModel'
