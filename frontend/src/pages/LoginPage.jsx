@@ -18,11 +18,6 @@ const LoginPage = () => {
 
   const HandleLogin = async (e)=>{
     e.preventDefault();
-    console.log("form submitted!");
-    console.log(Email);
-    console.log(Password);
-    console.log(Msg);
-
     if (Password.length < 8) {
       setMsgType("warn");
       setMsg("Password must contain at least 8 letters.");
