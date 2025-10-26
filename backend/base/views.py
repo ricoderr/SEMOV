@@ -16,9 +16,9 @@ class LoginAPIView(APIView):
         user = authenticate(request, username=email, password=password)
         if user: 
             login(request, user)
-            return Response({"message": "LoggedIn successfully!", "status": "Success"}, status=status.HTTP_200_OK)
+            return Response({"message": "LoggedIn successfully!"}, status=status.HTTP_200_OK)
         else: 
-            return Response({"message": "Invalid Credentials!", "status" : "Failed"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"message": "Invalid Credentials!"}, status=status.HTTP_401_UNAUTHORIZED)
         
         
 class SignupAPIView(APIView): 

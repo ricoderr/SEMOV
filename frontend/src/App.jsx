@@ -2,6 +2,7 @@ import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import MessageBox from "./components/MessageBox";
+import LoadingBox from "./components/LoadingBox";
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
@@ -14,7 +15,7 @@ function App() {
       <Routes location={location} key={location.pathname}>
         <Route path="/auth/login" element={<LoginPage />} />
         <Route path="/auth/signup" element={<SignupPage />} />
-        <Route path="/icon-view" element={<MessageBox />} />
+        <Route path="/loading-view" element={<LoadingBox/>} />
       </Routes>
     </AnimatePresence>
   );

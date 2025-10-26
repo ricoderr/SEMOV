@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import InputBox from "../components/InputBox";
 import MessageBox from "../components/MessageBox";
+import LoadingBox from "../components/LoadingBox";
 
 const SignupPage = () => {
   const [Username, setUsername] = useState("");
@@ -11,6 +12,7 @@ const SignupPage = () => {
   const [Password, setPassword] = useState("");
   const [Msg, setMsg] = useState("");
   const [MsgType, setMsgType] = useState("");
+  const [Loading, setLoading] = useState(false)
 
   const BASE_URL = "http://127.0.0.1:8000";
 
@@ -25,6 +27,7 @@ const SignupPage = () => {
       setMsgType("warn");
       setMsg("Password must contain at least 8 letters.");
     } else {
+      setLoading(true)
       try {
         const response = await fetch(`${BASE_URL}/auth/signup/`, {
           method: "POST",
@@ -47,6 +50,8 @@ const SignupPage = () => {
         }
       } catch (err) {
         console.error("Unable to fetch! MSG:", err);
+      } finally {
+        setLoading(false)
       }
     }
   }; 
@@ -54,6 +59,7 @@ const SignupPage = () => {
   return (
     <div className="w-full h-full flex justify-center items-center bg-black ">
       {Msg ? <MessageBox text={Msg} type={MsgType} onUsed={() => setMsg("")} /> : null}
+      {Loading ? <LoadingBox/> : null}
       <main className="bg-black w-[90%] h-[85%] flex justify-between items-center">
         <motion.div
           initial={{ x: 235 }}

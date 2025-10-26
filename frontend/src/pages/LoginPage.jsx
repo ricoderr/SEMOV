@@ -5,24 +5,60 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InputBox from "../components/InputBox";
 import MessageBox from "../components/MessageBox";
+import LoadingBox from "../components/LoadingBox";
 
 const LoginPage = () => {
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
+  const [MsgType, setMsgType] = useState("")
   const [Msg, setMsg] = useState("")
-  const [ShowMsg, setShowMsg] = useState(false)
+  const [Loading, setLoading] = useState(false)
+  
+  const BASE_URL = "http://127.0.0.1:8000"
 
-  const HandleSubmit = (e)=>{
-    e.preventDefault(); 
-    setMsg("show message working fine")
-    setShowMsg(true)
+  const HandleLogin = async (e)=>{
+    e.preventDefault();
+    console.log("form submitted!");
+    console.log(Email);
+    console.log(Password);
+    console.log(Msg);
+
+    if (Password.length < 8) {
+      setMsgType("warn");
+      setMsg("Password must contain at least 8 letters.");
+    } else {
+      setLoading(true)
+      try {
+        const response = await fetch(`${BASE_URL}/auth/login/`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            email: Email,
+            password: Password,
+          }),
+        });
+
+        if (!response) {
+          throw new Error("No response from the server!");
+        } else {
+          const data = await response.json();
+          response.status >= 400 ? setMsgType("failed") : setMsgType("success");
+          setMsg(data.message);
+        }
+      } catch (err) {
+        console.error("Unable to fetch! MSG:", err);
+      } finally {
+        setLoading(false); 
+      }
+    }
     
   }
   return (
-    // split login page. 
-    
     <div className="w-full h-full flex justify-center items-center bg-black ">
-      {ShowMsg === true ? <MessageBox text={Msg} InitialShow={ShowMsg} />: null}
+      {Msg ? <MessageBox text={Msg} type={MsgType} onUsed={() => setMsg("")} />: null}
+      {Loading ? <LoadingBox/> : null}
       <main className="bg-black w-[90%] h-[85%] flex justify-between items-center">
         <motion.div 
           initial={{x:235}}
@@ -45,7 +81,7 @@ const LoginPage = () => {
             <form
               action=""
               method="POST"
-              onSubmit={HandleSubmit}
+              onSubmit={HandleLogin}
               className="flex flex-col justify-between items-center w-1/2 h-[80%]"
             >
               
