@@ -6,8 +6,11 @@ import { motion } from "framer-motion";
 import InputBox from "../components/InputBox";
 import MessageBox from "../components/MessageBox";
 import LoadingBox from "../components/LoadingBox";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();  
+
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
   const [MsgType, setMsgType] = useState("")
@@ -41,8 +44,11 @@ const LoginPage = () => {
           const data = await response.json();
           response.status >= 400 ? setMsgType("failed") : setMsgType("success");
           setMsg(data.message);
+          navigate("/"); 
         }
       } catch (err) {
+        setMsgType("failed"); 
+        setMsg("Server Not responding"); 
         console.error("Unable to fetch! MSG:", err);
       } finally {
         setLoading(false); 

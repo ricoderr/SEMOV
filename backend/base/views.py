@@ -28,6 +28,7 @@ class SignupAPIView(APIView):
         password = request.data.get("password")
         
         try: 
+            
             User.objects.create_user(username=username, email=email, password=password)
             return Response({"message": "User created successfully!"}, status=status.HTTP_201_CREATED)
         except IntegrityError as e: 
